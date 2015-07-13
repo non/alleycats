@@ -16,8 +16,8 @@ situations.
 In some cases, a type class instance can almost (but not quite) obey
 the required laws (e.g. a `Monad` instance for `scala.util.Try`). In
 other cases, type classes which lack laws or constraints may still be
-useful in some cases (e.g. `Each[_]`, a type class which provides
-`foreach`).
+useful in some cases (e.g. `Empty[_]`, a type class which provides
+some notion of "emptiness").
 
 Rather than argue about whether to permit these types in Cats, we
 provide a (slightly-disreputable) home for them here.
