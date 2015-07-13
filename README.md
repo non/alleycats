@@ -24,7 +24,7 @@ provide a (slightly-disreputable) home for them here.
 
 ### Getting Alleycats
 
-Alleycats supports Scala 2.10 and 2.11. It is currently unpublished.
+Alleycats supports 2.11. It is currently unpublished.
 
 You can build Alleycats using
 [SBT](http://www.scala-sbt.org/0.13/tutorial/index.html).
