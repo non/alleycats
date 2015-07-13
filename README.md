@@ -37,6 +37,13 @@ Cats. Feel free to open a pull-request on either project --
 law-abiding instances will end up in Cats, and everything else will
 end up here.
 
+We are using the [Cats Gitter channel](https://gitter.im/non/cats) to
+discuss the Alleycats project as well. As with the Cats project,
+people are expected to follow the
+[Typelevel Code of Conduct](http://typelevel.org/conduct.html) when
+discussing Alleycats on the Github page, Gitter channel, or in other
+venues.
+
 ### Copyright and License
 
 All code is available to you under the MIT license, available at
