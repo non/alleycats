@@ -1,5 +1,7 @@
 package alleycats
 
+import cats.Foldable
+import cats.syntax.all._
 import simulacrum.typeclass
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.collection.immutable.{VectorBuilder}
@@ -29,12 +31,22 @@ trait Each[F[_]] { self =>
   }
 }
 
-object Each {
-
+object Each extends EachInstances0 {
   def apply[F[_]](implicit ev: Each[F]): Each[F] = ev
+}
 
+trait EachInstances0 {
   implicit def eachTraversable[CC[X] <: Traversable[X]]: Each[CC] =
     new Each[CC] {
-      def foreach[A](fa: CC[A])(f: A => Unit): Unit = fa.foreach(f)
+      def foreach[A](fa: CC[A])(f: A => Unit): Unit =
+        fa.foreach(f)
+    }
+}
+
+trait EachInstances1 extends EachInstances0 {
+  implicit def eachFoldable[F[_]: Foldable]: Each[F] =
+    new Each[F] {
+      def foreach[A](fa: F[A])(f: A => Unit): Unit =
+        fa.foldLeft(()) { (unit, a) => f(a); unit }
     }
 }
