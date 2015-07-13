@@ -151,7 +151,7 @@ lazy val noPublishSettings = Seq(
   publishArtifact := false
 )
 
-addCommandAlias("validate", ";compile;test;scalastyle;test:scalastyle;unidoc;tut")
+addCommandAlias("validate", ";compile;test;scalastyle;test:scalastyle")
 
 def gitSnapshots = Command.command("gitSnapshots") { state =>
   val extracted = Project extract state
