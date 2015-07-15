@@ -1,5 +1,7 @@
 package alleycats.std
 
 object all
-    extends SetInstances
+    extends ListInstances
+    with OptionInstances
+    with SetInstances
     with TryInstances
