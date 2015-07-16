@@ -17,9 +17,7 @@ import scala.collection.generic.CanBuildFrom
 
 object Empty extends EmptyInstances0 {
   def apply[A](a: => A): Empty[A] =
-    new Empty[A] {
-      lazy val empty: A = a
-    }
+    new Empty[A] { lazy val empty: A = a }
 }
 
 trait EmptyInstances0 extends EmptyInstances1 {
