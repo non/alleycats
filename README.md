@@ -42,14 +42,14 @@ having an identity element. Normally this would be done by defining a
 independent of a particular associative operation.
 
 In this case, `Empty[A]` may be used in place of `Monoid[A]`. It
-provides access to the *identity* element (via the `empty` method),
-and can provide `.isEmpty` and `.nonEmpty` tests if an `Eq[A]` is
+provides access to the *identity* element (via the `.empty` method),
+and can also provide `.isEmpty` and `.nonEmpty` if an `Eq[A]` is
 available.
 
 The two other type classes, `Zero[A]` and `One[A]`, are similar,
 except they correspond to `AdditiveMonoid[A]` and
-`MultiplicativeMonoid[A]` which are found in the `algebra.ring`
-package. Their methods are called `zero` and `one`, respectively.
+`MultiplicativeMonoid[A]` (found in the `algebra.ring` package). Their
+methods are called `zero` and `one`, respectively.
 
 While none of these type classes have their own laws, they are
 required not to violate the monoid laws when applicable. This means
@@ -62,7 +62,7 @@ effect).
 The same rules apply to `Zero[A]` and `One[A]` and their respective
 associative operations.
 
-#### Pure[F[_]] and Extract[F[_]]
+#### Pure[F[\_]] and Extract[F[\_]]
 
 The `Pure[F]` type class represents the `pure` method of
 `Applicative[F]` separated from its `map` and `ap` methods. Like the
@@ -75,7 +75,7 @@ Similarly, `Extract[F]` represents the `extract` method of
 and `CoflatMap[F]` are available, they should provide a valid
 `Comonad[F]` instance.
 
-#### EmptyK[F[_]]
+#### EmptyK[F[\_]]
 
 Finally, `EmptyK[F]` generalizes the `empty[A]` method from
 `MonoidK[F]`. The pattern here is the same as before --
@@ -86,7 +86,7 @@ instance.
 
 Alleycats also provides some "disreputable" type class instances.
 
-#### Set[_] instances
+#### Set[\_] instances
 
 Scala's `Set[_]` takes advantage of the universal availability of
 `.hashCode` and `.equals`. This makes it difficult to use
@@ -96,7 +96,7 @@ use with functors and monads.
 Alleycats provides `Monad[Set]` and `Traverse[Set]`. You can import
 these instances via `import alleycats.std.set._`.
 
-#### Try[_] instances
+#### Try[\_] instances
 
 Scala's `Try[_]` is intended to replace the need for `try { ... }
 catch { ... }` syntax in Scala programs, to ease error-handling, and
