@@ -90,8 +90,9 @@ Alleycats also provides some "disreputable" type class instances.
 
 Scala's `Set[_]` takes advantage of the universal availability of
 `.hashCode` and `.equals`. This makes it difficult to use
-[parametricity]() to reason about sets, and casts some doubt on their
-use with functors and monads.
+[parametricity](http://failex.blogspot.jp/2013/06/fake-theorems-for-free.html)
+to reason about sets, and casts some doubt on their use with functors
+and monads.
 
 Alleycats provides `Monad[Set]` and `Traverse[Set]`. You can import
 these instances via `import alleycats.std.set._`.
