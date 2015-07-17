@@ -2,10 +2,6 @@ import com.typesafe.sbt.pgp.PgpKeys.publishSigned
 import com.typesafe.sbt.SbtSite.SiteKeys._
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import pl.project13.scala.sbt.SbtJmh._
-import sbtrelease.ReleaseStep
-import sbtrelease.ReleasePlugin.ReleaseKeys.releaseProcess
-import sbtrelease.ReleaseStateTransformations._
-import sbtrelease.Utilities._
 import sbtunidoc.Plugin.UnidocKeys._
 import ScoverageSbtPlugin._
 
@@ -16,9 +12,9 @@ lazy val scoverageSettings = Seq(
 
 lazy val buildSettings = Seq(
   organization := "org.spire-math",
-  scalaVersion := "2.11.6",
-  //crossScalaVersions := Seq("2.10.5", "2.11.6")
-  crossScalaVersions := Seq("2.11.6")
+  scalaVersion := "2.11.7",
+  //crossScalaVersions := Seq("2.10.5", "2.11.7")
+  crossScalaVersions := Seq("2.11.7")
 )
 
 lazy val commonSettings = Seq(
@@ -54,18 +50,18 @@ lazy val commonSettings = Seq(
     "com.github.mpilquist" %% "simulacrum" % "0.3.0",
     "org.typelevel" %% "machinist" % "0.3.0",
     compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
-    compilerPlugin("org.spire-math" %% "kind-projector" % "0.5.4")
+    compilerPlugin("org.spire-math" %% "kind-projector" % "0.6.0")
   ),
   scmInfo := Some(ScmInfo(url("https://github.com/non/alleycats"),
     "scm:git:git@github.com:non/alleycats.git")),
   commands += gitSnapshots
 )
 
-lazy val alleycatsSettings = buildSettings ++ commonSettings ++ publishSettings ++ releaseSettings ++ scoverageSettings
+lazy val alleycatsSettings = buildSettings ++ commonSettings ++ publishSettings ++ scoverageSettings
 
 lazy val disciplineDependencies = Seq(
-  "org.scalacheck" %% "scalacheck" % "1.11.3",
-  "org.typelevel" %% "discipline" % "0.2.1"
+  "org.scalacheck" %% "scalacheck" % "1.12.4",
+  "org.typelevel" %% "discipline" % "0.3"
 )
 
 lazy val alleycats = project.in(file("."))
@@ -77,25 +73,27 @@ lazy val alleycats = project.in(file("."))
 lazy val core = project
   .settings(moduleName := "alleycats-core")
   .settings(alleycatsSettings)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-core" % "0.1.0-SNAPSHOT")
+  .settings(libraryDependencies += "org.spire-math" %% "cats-core" % "0.1.2")
 
 lazy val laws = project.dependsOn(core)
   .settings(moduleName := "alleycats-laws")
   .settings(alleycatsSettings)
   .settings(libraryDependencies ++= disciplineDependencies)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-laws" % "0.1.0-SNAPSHOT")
+  .settings(libraryDependencies += "org.spire-math" %% "cats-laws" % "0.1.2")
 
 lazy val tests = project.dependsOn(core, laws)
   .settings(moduleName := "alleycats-tests")
   .settings(alleycatsSettings)
   .settings(noPublishSettings)
   .settings(libraryDependencies ++= disciplineDependencies)
-  .settings(libraryDependencies +="org.scalatest" %% "scalatest" % "2.1.3" % "test")
+  .settings(libraryDependencies +="org.scalatest" %% "scalatest" % "2.2.5" % "test")
 
 lazy val publishSettings = Seq(
   homepage := Some(url("https://github.com/non/alleycats")),
   licenses := Seq("MIT" -> url("http://opensource.org/licenses/MIT")),
   autoAPIMappings := true,
+  releaseCrossBuild := true,
+  releasePublishArtifactsAction := PgpKeys.publishSigned.value,
   publishMavenStyle := true,
   publishArtifact in packageDoc := false,
   publishArtifact in Test := false,
@@ -115,35 +113,7 @@ lazy val publishSettings = Seq(
         <url>http://github.com/non/</url>
       </developer>
     </developers>
-  ),
-  releaseProcess := Seq[ReleaseStep](
-    checkSnapshotDependencies,
-    inquireVersions,
-    runTest,
-    setReleaseVersion,
-    commitReleaseVersion,
-    tagRelease,
-    publishSignedArtifacts,
-    setNextVersion,
-    commitNextVersion,
-    pushChanges
   )
-)
-
-lazy val publishSignedArtifacts = ReleaseStep(
-  action = { st =>
-    val extracted = st.extract
-    val ref = extracted.get(thisProjectRef)
-    extracted.runAggregated(publishSigned in Global in ref, st)
-  },
-  check = { st =>
-    // getPublishTo fails if no publish repository is set up.
-    val ex = st.extract
-    val ref = ex.get(thisProjectRef)
-    Classpaths.getPublishTo(ex.get(publishTo in Global in ref))
-    st
-  },
-  enableCrossBuild = true
 )
 
 lazy val noPublishSettings = Seq(
