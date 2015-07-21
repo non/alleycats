@@ -13,8 +13,7 @@ lazy val scoverageSettings = Seq(
 lazy val buildSettings = Seq(
   organization := "org.spire-math",
   scalaVersion := "2.11.7",
-  //crossScalaVersions := Seq("2.10.5", "2.11.7")
-  crossScalaVersions := Seq("2.11.7")
+  crossScalaVersions := Seq("2.10.5", "2.11.7")
 )
 
 lazy val commonSettings = Seq(
@@ -42,7 +41,6 @@ lazy val commonSettings = Seq(
   scalacOptions in (Compile, console) ~= (_ filterNot (_ == "-Ywarn-unused-import")),
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value,
   resolvers ++= Seq(
-    "bintray/non" at "http://dl.bintray.com/non/maven",
     Resolver.sonatypeRepo("releases"),
     Resolver.sonatypeRepo("snapshots")
   ),
@@ -50,7 +48,7 @@ lazy val commonSettings = Seq(
     "com.github.mpilquist" %% "simulacrum" % "0.3.0",
     "org.typelevel" %% "machinist" % "0.3.0",
     compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
-    compilerPlugin("org.spire-math" %% "kind-projector" % "0.6.0")
+    compilerPlugin("org.spire-math" %% "kind-projector" % "0.6.3")
   ),
   scmInfo := Some(ScmInfo(url("https://github.com/non/alleycats"),
     "scm:git:git@github.com:non/alleycats.git")),
