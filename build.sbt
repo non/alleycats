@@ -4,6 +4,7 @@ import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import pl.project13.scala.sbt.SbtJmh._
 import sbtunidoc.Plugin.UnidocKeys._
 import ScoverageSbtPlugin._
+import ReleaseTransformations._
 
 lazy val scoverageSettings = Seq(
   ScoverageKeys.coverageMinimum := 60,
@@ -93,7 +94,7 @@ lazy val publishSettings = Seq(
   releaseCrossBuild := true,
   releasePublishArtifactsAction := PgpKeys.publishSigned.value,
   publishMavenStyle := true,
-  publishArtifact in packageDoc := false,
+  publishArtifact in packageDoc := true,
   publishArtifact in Test := false,
   pomIncludeRepository := { _ => false },
   publishTo <<= version { (v: String) =>
@@ -111,8 +112,20 @@ lazy val publishSettings = Seq(
         <url>http://github.com/non/</url>
       </developer>
     </developers>
-  )
-)
+  ),
+  releaseProcess := Seq[ReleaseStep](
+    checkSnapshotDependencies,
+    inquireVersions,
+    runClean,
+    runTest,
+    setReleaseVersion,
+    commitReleaseVersion,
+    tagRelease,
+    publishArtifacts,
+    setNextVersion,
+    commitNextVersion,
+    ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
+    pushChanges))
 
 lazy val noPublishSettings = Seq(
   publish := (),
