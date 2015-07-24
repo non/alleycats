@@ -24,9 +24,18 @@ provide a (slightly-disreputable) home for them here.
 
 ### Getting Alleycats
 
-Alleycats supports 2.11. It is currently unpublished.
+Alleycats is currently available for Scala 2.10 and 2.11.
 
-You can build Alleycats using
+To get started with SBT, simply add the following to your `build.sbt`
+file:
+
+```scala
+resolvers += Resolver.sonatypeRepo("releases")
+
+libraryDependencies += "org.spire-math" %% "cats" % "0.1.2"
+```
+
+You can also build Alleycats using
 [SBT](http://www.scala-sbt.org/0.13/tutorial/index.html).
 
 ### Type classes
