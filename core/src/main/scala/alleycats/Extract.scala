@@ -1,8 +1,9 @@
 package alleycats
 
 import cats.{Applicative, CoflatMap, Comonad}
+import simulacrum.typeclass
 
-trait Extract[F[_]] {
+@typeclass trait Extract[F[_]] {
   def extract[A](fa: F[A]): A
 }
 

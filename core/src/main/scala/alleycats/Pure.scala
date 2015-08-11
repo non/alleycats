@@ -1,8 +1,9 @@
 package alleycats
 
 import cats.{Applicative, FlatMap, Monad}
+import simulacrum.typeclass
 
-trait Pure[F[_]] {
+@typeclass trait Pure[F[_]] {
   def pure[A](a: A): F[A]
 }
 
