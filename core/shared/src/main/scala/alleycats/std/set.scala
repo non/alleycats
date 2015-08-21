@@ -1,6 +1,6 @@
 package alleycats.std
 
-import cats.{Applicative, Fold, Monad, Traverse}
+import cats.{Applicative, Eval, Foldable, Monad, Traverse}
 
 object set extends SetInstances
 
@@ -16,8 +16,8 @@ trait SetInstances {
     new Traverse[Set] {
       def foldLeft[A, B](fa: Set[A], b: B)(f: (B, A) => B): B =
         fa.foldLeft(b)(f)
-      def partialFold[A, B](fa: Set[A])(f: A => Fold[B]): Fold[B] =
-        Fold.partialIterate(fa)(f)
+      def foldRight[A, B](fa: Set[A], lb: Eval[B])(f: (A, Eval[B]) => Eval[B]): Eval[B] =
+        Foldable.iterateRight(fa.iterator, lb)(f)
       def traverse[G[_]: Applicative, A, B](sa: Set[A])(f: A => G[B]): G[Set[B]] = {
         val G = Applicative[G]
         sa.foldLeft(G.pure(Set.empty[B])) { (buf, a) =>
