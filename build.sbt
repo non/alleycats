@@ -43,12 +43,14 @@ lazy val commonSettings = Seq(
   scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value,
   resolvers ++= Seq(
     Resolver.sonatypeRepo("releases"),
-    Resolver.sonatypeRepo("snapshots")
+    Resolver.sonatypeRepo("snapshots"),
+    Resolver.mavenLocal
   ),
+  parallelExecution in Test := false,
   libraryDependencies ++= Seq(
-    "com.github.mpilquist" %% "simulacrum" % "0.3.0",
-    "org.typelevel" %% "machinist" % "0.3.0",
-    compilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full),
+    "com.github.mpilquist" %%% "simulacrum" % "0.4.0",
+    "org.typelevel" %%% "machinist" % "0.4.1",
+    compilerPlugin("org.scalamacros" %% "paradise" % "2.1.0-M5" cross CrossVersion.full),
     compilerPlugin("org.spire-math" %% "kind-projector" % "0.6.3")
   ),
   scmInfo := Some(ScmInfo(url("https://github.com/non/alleycats"),
@@ -56,36 +58,69 @@ lazy val commonSettings = Seq(
   commands += gitSnapshots
 )
 
+lazy val commonJsSettings = Seq(
+  scalaJSStage in Global := FastOptStage
+)
+
 lazy val alleycatsSettings = buildSettings ++ commonSettings ++ publishSettings ++ scoverageSettings
 
 lazy val disciplineDependencies = Seq(
-  "org.scalacheck" %% "scalacheck" % "1.12.4",
-  "org.typelevel" %% "discipline" % "0.3"
+  libraryDependencies += "org.scalacheck" %%% "scalacheck" % "1.12.4",
+  libraryDependencies += "org.typelevel" %%% "discipline" % "0.4"
 )
 
 lazy val alleycats = project.in(file("."))
-  .settings(moduleName := "alleycats")
-  .settings(alleycatsSettings)
-  .aggregate(core, laws, tests)
-  .dependsOn(core, laws, tests % "test-internal -> test")
-
-lazy val core = project
-  .settings(moduleName := "alleycats-core")
-  .settings(alleycatsSettings)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-core" % "0.1.2")
-
-lazy val laws = project.dependsOn(core)
-  .settings(moduleName := "alleycats-laws")
-  .settings(alleycatsSettings)
-  .settings(libraryDependencies ++= disciplineDependencies)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-laws" % "0.1.2")
-
-lazy val tests = project.dependsOn(core, laws)
-  .settings(moduleName := "alleycats-tests")
+  .settings(moduleName := "root")
   .settings(alleycatsSettings)
   .settings(noPublishSettings)
-  .settings(libraryDependencies ++= disciplineDependencies)
-  .settings(libraryDependencies +="org.scalatest" %% "scalatest" % "2.2.5" % "test")
+  .aggregate(alleycatsJVM, alleycatsJS)
+  .dependsOn(alleycatsJVM, alleycatsJS, testsJVM % "test-internal -> test")
+
+lazy val alleycatsJVM = project.in(file(".alleycatsJVM"))
+  .settings(moduleName := "alleycats")
+  .settings(alleycatsSettings)
+  .aggregate(coreJVM, lawsJVM, testsJVM)
+  .dependsOn(coreJVM, lawsJVM, testsJVM % "test-internal -> test")
+
+lazy val alleycatsJS = project.in(file(".alleycatsJS"))
+  .settings(moduleName := "alleycats")
+  .settings(alleycatsSettings)
+  .settings(commonJsSettings)
+  .aggregate(coreJS, lawsJS, testsJS)
+  .dependsOn(coreJS, lawsJS, testsJS % "test-internal -> test")
+  .enablePlugins(ScalaJSPlugin)
+
+lazy val core = crossProject
+  .settings(moduleName := "alleycats-core")
+  .settings(alleycatsSettings:_*)
+  .settings(libraryDependencies += "org.spire-math" %%% "cats-core" % "0.1.3-SNAPSHOT")
+  .jsSettings(commonJsSettings:_*)
+
+lazy val coreJVM = core.jvm
+lazy val coreJS = core.js
+
+lazy val laws = crossProject.crossType(CrossType.Pure)
+  .dependsOn(core)
+  .settings(moduleName := "alleycats-laws")
+  .settings(alleycatsSettings:_*)
+  .settings(disciplineDependencies:_*)
+  .settings(libraryDependencies += "org.spire-math" %%% "cats-laws" % "0.1.3-SNAPSHOT")
+  .jsSettings(commonJsSettings:_*)
+
+lazy val lawsJVM = laws.jvm
+lazy val lawsJS = laws.js
+
+lazy val tests = crossProject.dependsOn(core, laws)
+  .settings(moduleName := "alleycats-tests")
+  .settings(alleycatsSettings:_*)
+  .settings(noPublishSettings:_*)
+  .settings(disciplineDependencies:_*)
+  .settings(libraryDependencies +="org.scalatest" %%% "scalatest" % "3.0.0-M7" % "test")
+  .settings(libraryDependencies += "org.spire-math" %%% "cats-tests" % "0.1.3-SNAPSHOT" % "test")
+  .jsSettings(commonJsSettings:_*)
+
+lazy val testsJVM = tests.jvm
+lazy val testsJS = tests.js
 
 lazy val publishSettings = Seq(
   homepage := Some(url("https://github.com/non/alleycats")),

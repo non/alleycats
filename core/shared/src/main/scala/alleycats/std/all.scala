@@ -1,7 +1,9 @@
-package alleycats.std
+package alleycats
+package std
 
 object all
-    extends ListInstances
+    extends FutureInstances
+    with ListInstances
     with OptionInstances
     with SetInstances
     with TryInstances
