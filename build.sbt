@@ -72,13 +72,13 @@ lazy val alleycats = project.in(file("."))
 lazy val core = project
   .settings(moduleName := "alleycats-core")
   .settings(alleycatsSettings)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-core" % "0.1.2")
+  .settings(libraryDependencies += "org.spire-math" %% "cats-core" % "0.2.0")
 
 lazy val laws = project.dependsOn(core)
   .settings(moduleName := "alleycats-laws")
   .settings(alleycatsSettings)
   .settings(libraryDependencies ++= disciplineDependencies)
-  .settings(libraryDependencies += "org.spire-math" %% "cats-laws" % "0.1.2")
+  .settings(libraryDependencies += "org.spire-math" %% "cats-laws" % "0.2.0")
 
 lazy val tests = project.dependsOn(core, laws)
   .settings(moduleName := "alleycats-tests")
