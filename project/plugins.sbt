@@ -17,4 +17,4 @@ addSbtPlugin("com.typesafe.sbt"  % "sbt-git"                % "0.8.4")
 
 // workaround until scalastyle-sbt-plugin uses a newer scalariform version
 // (see also #6):
-libraryDependencies += "org.scalariform" %% "scalariform" % "0.1.7"
+//libraryDependencies += "org.scalariform" %% "scalariform" % "0.1.7"
