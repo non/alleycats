@@ -133,7 +133,10 @@ lazy val noPublishSettings = Seq(
   publishArtifact := false
 )
 
-addCommandAlias("validate", ";compile;test;scalastyle;test:scalastyle")
+addCommandAlias("validate", ";compile;test")
+// Enable scalastyle again when https://github.com/scalastyle/scalastyle/issues/156
+// is fixed and released.
+//addCommandAlias("validate", ";compile;test;scalastyle;test:scalastyle")
 
 def gitSnapshots = Command.command("gitSnapshots") { state =>
   val extracted = Project extract state
