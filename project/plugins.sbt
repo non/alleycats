@@ -14,3 +14,7 @@ addSbtPlugin("pl.project13.scala"% "sbt-jmh"                % "0.1.10")
 addSbtPlugin("org.scalastyle"    %% "scalastyle-sbt-plugin" % "0.6.0")
 addSbtPlugin("org.scoverage"     % "sbt-scoverage"          % "1.2.0")
 addSbtPlugin("com.typesafe.sbt"  % "sbt-git"                % "0.8.4")
+
+// workaround until scalastyle-sbt-plugin uses a newer scalariform version
+// (see also #6):
+libraryDependencies += "org.scalariform" %% "scalariform" % "0.1.7"
