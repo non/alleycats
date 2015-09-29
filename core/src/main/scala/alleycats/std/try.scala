@@ -1,6 +1,7 @@
-package alleycats.std
+package alleycats
+package std
 
-import cats.Monad
+import cats.Bimonad
 import scala.util.Try
 
 object try_ extends TryInstances
@@ -23,10 +24,16 @@ trait TryInstances {
   // Since `verify` is not a total function, it is arguable whether
   // this constitutes a law violation, but there is enough concern
   // that the Monad[Try] instance has ended up here in Alleycats.
-  implicit val tryMonad: Monad[Try] =
-    new Monad[Try] {
+  //
+  // Furthermore, since Cats has introduced a Bimonad[A], the Monad[Try]
+  // and Comanad[Try] instances have been replaced by a single Bimonad[Try]
+  // instance.
+  implicit val tryBimonad: Bimonad[Try] =
+    new Bimonad[Try] {
       def pure[A](a: A): Try[A] = Try(a)
       override def map[A, B](fa: Try[A])(f: A => B): Try[B] = fa.map(f)
       def flatMap[A, B](fa: Try[A])(f: A => Try[B]): Try[B] = fa.flatMap(f)
-    }
+      def coflatMap[A, B](fa: Try[A])(f: Try[A] => B): Try[B] = Try(f(fa))
+      def extract[A](p: Try[A]): A = p.get
+  }
 }
