@@ -37,7 +37,7 @@ val scalacVersion = "2.11.7"
 val simulacrumVersion= "0.4.0"
 
 lazy val buildSettings = Seq(
-  organization := "org.spire-math",
+  organization := "org.typelevel",
   scalaVersion := "2.11.7",
   crossScalaVersions := Seq("2.10.6", scalacVersion)
 )
