@@ -32,7 +32,7 @@ file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-libraryDependencies += "org.spire-math" %% "alleycats" % "0.1.2"
+libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.2"
 ```
 
 You can also build Alleycats using
