@@ -1,10 +1,15 @@
 package alleycats
 package std
 
-object option extends OptionInstances
+import export._
 
-trait OptionInstances {
-  implicit val optionEmptyK: EmptyK[Option] =
+@reexports(OptionInstances)
+object option
+
+@exports
+object OptionInstances {
+  @export(Orphan)
+  implicit val exportOptionEmptyK: EmptyK[Option] =
     new EmptyK[Option] {
       def empty[A]: Option[A] = None
     }

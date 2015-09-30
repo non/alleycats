@@ -1,11 +1,10 @@
 package alleycats.std
 
 import cats.{Applicative, Eval, Foldable, Monad, Traverse}
+import export._
 
-object set extends SetInstances
-
-trait SetInstances {
-
+@exports
+object SetInstances {
   // This method advertises parametricity, but relies on using
   // universal hash codes and equality, which hurts our ability to
   // rely on free theorems.
@@ -26,6 +25,7 @@ trait SetInstances {
   // contain three. Since `g` is not a function (speaking strictly)
   // this would not be considered a law violation, but it still makes
   // people uncomfortable.
+  @export(Orphan)
   implicit val setMonad: Monad[Set] =
     new Monad[Set] {
       def pure[A](a: A): Set[A] = Set(a)
@@ -36,6 +36,7 @@ trait SetInstances {
   // Since iteration order is not guaranteed for sets, folds and other
   // traversals may produce different results for input sets which
   // appear to be the same.
+  @export(Orphan)
   implicit val setTraverse: Traverse[Set] =
     new Traverse[Set] {
       def foldLeft[A, B](fa: Set[A], b: B)(f: (B, A) => B): B =
@@ -49,4 +50,14 @@ trait SetInstances {
         }
       }
     }
+}
+
+@reexports(SetInstances)
+object set extends LegacySetInstances
+
+// TODO: remove when cats.{ Set, Traverse } support export-hook
+trait LegacySetInstances {
+  implicit def legacySetMonad(implicit e: ExportOrphan[Monad[Set]]): Monad[Set] = e.instance
+
+  implicit def legacySetTraverse(implicit e: ExportOrphan[Traverse[Set]]): Traverse[Set] = e.instance
 }
