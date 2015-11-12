@@ -8,6 +8,7 @@ addCommandAlias("buildJVM", ";coreJVM/compile;lawsJVM/compile;testsJVM/test")
 addCommandAlias("validateJVM", ";scalastyle;buildJVM")
 addCommandAlias("validateJS", ";coreJS/compile;lawsJS/compile;testsJS/test")
 addCommandAlias("validate", ";validateJS;validateJVM")
+addCommandAlias("gitSnapshots", ";set version in ThisBuild := git.gitDescribedVersion.value.get + \"-SNAPSHOT\"")
 
 /**
  * Project settings
