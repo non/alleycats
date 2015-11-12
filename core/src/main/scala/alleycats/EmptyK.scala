@@ -12,12 +12,8 @@ import simulacrum.typeclass
     }
 }
 
-object EmptyK extends EmptyK0
-
-// Currently a simulacrum bug prevents this trait from being folded into
-// the object
 @imports[EmptyK]
-trait EmptyK0
+object EmptyK
 
 @exports
 object EmptyKInstances {
