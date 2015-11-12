@@ -6,6 +6,9 @@
 > -- Hunter S. Thompson, "The Art of Journalism No. 1"
 >    The Paris Review, Fall 2000, Issue 156.
 
+[![Build Status](https://api.travis-ci.org/non/alleycats.png)](https://travis-ci.org/non/alleycats)
+[![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/non/alleycats)
+
 ### Overview
 
 Alleycats is an extension of the [Cats](http://github.com/non/cats)
