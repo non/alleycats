@@ -18,7 +18,7 @@ val devs = Seq(Dev("Erik Osheim", "non"))
 
 val updates = Map(
   "macro-compat" -> "1.1.0",
-  "export-hook" -> "1.0.3-SNAPSHOT",
+  "export-hook" -> "1.1.0",
   "simulacrum" -> "0.5.0-SNAPSHOT"
 )
 val updatesSettings = Seq( resolvers += Resolver.sonatypeRepo("snapshots"))
@@ -58,7 +58,7 @@ lazy val coreJVM = coreM.jvm
 lazy val coreJS  = coreM.js
 lazy val coreM   = module("core", CrossType.Pure)
   .settings(typelevel.macroCompatSettings(vAll):_*)
-  .settings(addLibs(vAll, "cats-core", "export-hook"):_*)
+  .settings(addLibs(vAll, "cats-core", "export-hook", "simulacrum"):_*)
 
 /**
  * Laws project
