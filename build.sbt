@@ -19,7 +19,7 @@ val devs = Seq(Dev("Erik Osheim", "non"))
 val updates = Map(
   "macro-compat" -> "1.1.0",
   "export-hook" -> "1.1.0",
-  "simulacrum" -> "0.5.0-SNAPSHOT"
+  "simulacrum" -> "0.5.0"
 )
 val updatesSettings = Seq( resolvers += Resolver.sonatypeRepo("snapshots"))
 
