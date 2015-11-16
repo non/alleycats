@@ -21,7 +21,6 @@ val updates = Map(
   "export-hook" -> "1.1.0",
   "simulacrum" -> "0.5.0"
 )
-val updatesSettings = Seq( resolvers += Resolver.sonatypeRepo("snapshots"))
 
 val vers = typelevel.versions ++ alleycats.versions ++ updates
 val libs = typelevel.libraries ++ alleycats.libraries
@@ -31,7 +30,7 @@ val vAll = Versions(vers, libs, addins)
 /**
  * alleycats - This is the root project that aggregates the alleycatsJVM and alleycatsJS sub projects
  */
-lazy val rootSettings = buildSettings ++ commonSettings ++ publishSettings ++ scoverageSettings ++ updatesSettings
+lazy val rootSettings = buildSettings ++ commonSettings ++ publishSettings ++ scoverageSettings
 
 lazy val module = mkModuleFactory(gh.proj, mkConfig(rootSettings, commonJvmSettings, commonJsSettings))
 lazy val prj = mkPrjFactory(rootSettings)
