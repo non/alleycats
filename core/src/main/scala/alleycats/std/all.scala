@@ -1,7 +1,12 @@
-package alleycats.std
+package alleycats
+package std
 
-object all
-    extends ListInstances
-    with OptionInstances
-    with SetInstances
-    with TryInstances
+import export._
+
+@reexports(
+  EmptyKInstances,
+  ListInstances,
+  OptionInstances,
+  SetInstances,
+  TryInstances
+) object all extends LegacySetInstances with LegacyTryInstances

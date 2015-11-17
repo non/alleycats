@@ -2,12 +2,14 @@ package alleycats
 package std
 
 import cats.Bimonad
+import export._
 import scala.util.Try
 
-object try_ extends TryInstances
+@reexports(TryInstances)
+object try_ extends LegacyTryInstances
 
-trait TryInstances {
-
+@exports
+object TryInstances {
   // There are various concerns people have over Try's ability to
   // satisfy the monad laws. For example, consider the following code:
   //
@@ -28,6 +30,8 @@ trait TryInstances {
   // Furthermore, since Cats has introduced a Bimonad[A], the Monad[Try]
   // and Comanad[Try] instances have been replaced by a single Bimonad[Try]
   // instance.
+  //
+  @export(Orphan)
   implicit val tryBimonad: Bimonad[Try] =
     new Bimonad[Try] {
       def pure[A](a: A): Try[A] = Try(a)
@@ -36,4 +40,9 @@ trait TryInstances {
       def coflatMap[A, B](fa: Try[A])(f: Try[A] => B): Try[B] = Try(f(fa))
       def extract[A](p: Try[A]): A = p.get
   }
+}
+
+// TODO: remove when cats.{ Monad, Comonad, Bimonad } support export-hook
+trait LegacyTryInstances {
+  implicit def legacyTryBimonad(implicit e: ExportOrphan[Bimonad[Try]]): Bimonad[Try] = e.instance
 }

@@ -16,7 +16,13 @@ addCommandAlias("gitSnapshots", ";set version in ThisBuild := git.gitDescribedVe
 val gh = GitHubSettings(org = "non", proj = "alleycats", publishOrg = "org.typelevel", license = mit)
 val devs = Seq(Dev("Erik Osheim", "non"))
 
-val vers = typelevel.versions ++ alleycats.versions
+val updates = Map(
+  "macro-compat" -> "1.1.0",
+  "export-hook" -> "1.1.0",
+  "simulacrum" -> "0.5.0"
+)
+
+val vers = typelevel.versions ++ alleycats.versions ++ updates
 val libs = typelevel.libraries ++ alleycats.libraries
 val addins = typelevel.scalacPlugins ++ alleycats.scalacPlugins
 val vAll = Versions(vers, libs, addins)
@@ -51,7 +57,7 @@ lazy val coreJVM = coreM.jvm
 lazy val coreJS  = coreM.js
 lazy val coreM   = module("core", CrossType.Pure)
   .settings(typelevel.macroCompatSettings(vAll):_*)
-  .settings(addLibs(vAll, "cats-core"):_*)
+  .settings(addLibs(vAll, "cats-core", "export-hook", "simulacrum"):_*)
 
 /**
  * Laws project
@@ -86,7 +92,7 @@ lazy val commonSettings = sharedCommonSettings ++
   addCompilerPlugins(vAll, "kind-projector") ++ Seq(
   scalacOptions ++= scalacAllOptions,
   parallelExecution in Test := false
-) ++ warnUnusedImport ++ unidocCommonSettings
+) /* ++ warnUnusedImport */ ++ unidocCommonSettings // spurious warnings from macro annotations expected
 
 lazy val commonJsSettings = Seq(
   scalaJSStage in Global := FastOptStage

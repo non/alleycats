@@ -2,6 +2,7 @@ package alleycats
 
 import cats.{Eq, Monoid}
 import cats.syntax.eq._
+import export.imports
 import simulacrum.typeclass
 import scala.collection.generic.CanBuildFrom
 
@@ -25,7 +26,11 @@ trait EmptyInstances0 extends EmptyInstances1 {
     Empty(cbf().result)
 }
 
-trait EmptyInstances1 {
+trait EmptyInstances1 extends EmptyInstances2 {
+  // If Monoid extended Empty then this could be an exported subclass instance provided by Monoid
   implicit def monoidIsEmpty[A: Monoid]: Empty[A] =
     Empty(Monoid[A].empty)
 }
+
+@imports[Empty]
+trait EmptyInstances2
