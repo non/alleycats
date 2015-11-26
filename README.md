@@ -41,6 +41,19 @@ libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.2"
 You can also build Alleycats using
 [SBT](http://www.scala-sbt.org/0.13/tutorial/index.html).
 
+Alleycats uses [sbt-catalysts][] 0.1.6 to provide a consistent view of
+its dependencies on Typelevel projects. As of sbt-catalysts 0.1.6 the
+base version profile can be found [here][typelevel-deps]. Alleycats
+uses the following version overrides relative to that,
+
++ export-hook-1.1.0
++ macro-compat-1.1.0
++ simulacrum-0.5.0
+
+[sbt-catalysts]: https://github.com/InTheNow/sbt-catalysts
+[typelevel-deps]: https://github.com/InTheNow/sbt-catalysts/blob/v0.1.6/src/main/scala/org/typelevel/TypelevelDeps.scala
+
+
 ### Type classes
 
 Alleycats introduces several new type classes. Here is an overview of
