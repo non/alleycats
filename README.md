@@ -35,7 +35,7 @@ file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.2"
+libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.3"
 ```
 
 You can also build Alleycats using
@@ -48,7 +48,7 @@ uses the following version overrides relative to that,
 
 + export-hook-1.1.0
 + macro-compat-1.1.0
-+ simulacrum-0.5.0
++ simulacrum-0.6.1
 
 [sbt-catalysts]: https://github.com/InTheNow/sbt-catalysts
 [typelevel-deps]: https://github.com/InTheNow/sbt-catalysts/blob/v0.1.6/src/main/scala/org/typelevel/TypelevelDeps.scala
