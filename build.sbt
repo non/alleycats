@@ -16,13 +16,7 @@ addCommandAlias("gitSnapshots", ";set version in ThisBuild := git.gitDescribedVe
 val gh = GitHubSettings(org = "non", proj = "alleycats", publishOrg = "org.typelevel", license = mit)
 val devs = Seq(Dev("Erik Osheim", "non"))
 
-val updates = Map(
-  "macro-compat" -> "1.1.0",
-  "export-hook" -> "1.1.0",
-  "simulacrum" -> "0.6.1"
-)
-
-val vers = typelevel.versions ++ alleycats.versions ++ updates
+val vers = typelevel.versions ++ alleycats.versions
 val libs = typelevel.libraries ++ alleycats.libraries
 val addins = typelevel.scalacPlugins ++ alleycats.scalacPlugins
 val vAll = Versions(vers, libs, addins)
