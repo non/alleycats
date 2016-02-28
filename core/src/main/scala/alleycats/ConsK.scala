@@ -11,7 +11,7 @@ import simulacrum.typeclass
 object ConsK extends ConsK0 {
   implicit def pureSemigroupKIsConsK[F[_]](implicit p: Pure[F], s: SemigroupK[F]): ConsK[F] =
     new ConsK[F] {
-      def cons[A](hd: A, tl: F[A]): F[A] = s.combine(p.pure(hd), tl)
+      def cons[A](hd: A, tl: F[A]): F[A] = s.combineK(p.pure(hd), tl)
     }
 }
 
