@@ -88,11 +88,9 @@ lazy val commonSettings = sharedCommonSettings ++
   parallelExecution in Test := false
 ) /* ++ warnUnusedImport */ ++ unidocCommonSettings // spurious warnings from macro annotations expected
 
-lazy val commonJsSettings = Seq(
-  scalaJSStage in Global := FastOptStage
-)
+lazy val commonJsSettings = sharedJsSettings
 
-lazy val commonJvmSettings = Seq()
+lazy val commonJvmSettings = sharedJvmSettings
 
 lazy val disciplineDependencies = Seq(addLibs(vAll, "discipline", "scalacheck" ):_*)
 
