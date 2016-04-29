@@ -8,6 +8,7 @@
 
 [![Build Status](https://api.travis-ci.org/non/alleycats.png)](https://travis-ci.org/non/alleycats)
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/non/alleycats)
+[![Maven Central](https://img.shields.io/maven-central/v/org.typelevel/alleycats_2.11.svg)](https://maven-badges.herokuapp.com/maven-central/org.typelevel/alleycats_2.11)
 
 ### Overview
 
@@ -35,7 +36,7 @@ file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.3"
+libraryDependencies += "org.typelevel" %% "alleycats" % "0.1.4"
 ```
 
 You can also build Alleycats using
