@@ -13,8 +13,10 @@ object TryInstances {
   // There are various concerns people have over Try's ability to
   // satisfy the monad laws. For example, consider the following code:
   //
-  //     def verify(n: Int): Int =
-  //       if (n == 0) sys.error("nope") else n
+  //     import scala.util.{Try, Success}
+  //
+  //     def verify(n: Int): Try[Int] =
+  //       if (n == 0) sys.error("nope") else Success(n)
   //
   //     val x = Try(0).flatMap(verify)
   //     val y = verify(0)
