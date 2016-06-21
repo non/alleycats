@@ -1,5 +1,6 @@
 import org.typelevel.{Dependencies => typelevel}
 import org.typelevel.alleycats.{Dependencies => alleycats}
+
 /**
  * These aliases serialise the build for the benefit of Travis-CI, also useful for pre-PR testing.
  * If new projects are added to the build, these must be updated.
@@ -16,7 +17,7 @@ addCommandAlias("gitSnapshots", ";set version in ThisBuild := git.gitDescribedVe
 val gh = GitHubSettings(org = "non", proj = "alleycats", publishOrg = "org.typelevel", license = mit)
 val devs = Seq(Dev("Erik Osheim", "non"))
 
-val vers = typelevel.versions ++ alleycats.versions
+val vers = typelevel.versions ++ alleycats.versions + ("discipline" -> "0.4.1")
 val libs = typelevel.libraries ++ alleycats.libraries
 val addins = typelevel.scalacPlugins ++ alleycats.scalacPlugins
 val vAll = Versions(vers, libs, addins)
