@@ -46,8 +46,8 @@ Alleycats uses [sbt-catalysts][] 0.1.9 to provide a consistent view of
 its dependencies on Typelevel projects. As of sbt-catalysts 0.1.9 the
 base version profile can be found [here][typelevel-deps].
 
-[sbt-catalysts]: https://github.com/InTheNow/sbt-catalysts
-[typelevel-deps]: https://github.com/InTheNow/sbt-catalysts/blob/v0.1.9/src/main/scala/org/typelevel/TypelevelDeps.scala
+[sbt-catalysts]: https://github.com/typelevel/sbt-catalysts
+[typelevel-deps]: https://github.com/typelevel/sbt-catalysts/blob/master/src/main/scala/org/typelevel/TypelevelDeps.scala
 
 
 ### Type classes
