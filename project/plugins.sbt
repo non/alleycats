@@ -9,3 +9,5 @@ resolvers += Resolver.url("typelevel-sbt-plugins", url("http://dl.bintray.com/co
 addSbtPlugin("org.typelevel" % "sbt-catalysts" % "0.1.10")
 
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+
+addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.2.3")
