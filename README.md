@@ -127,7 +127,22 @@ catches exceptions in `.map` and `.flatMap`, some people are skeptical
 that `Try` fulfills the necessary functor/monad laws.
 
 Alleycats provides a `Monad[Try]`. You can import this instance via
-`import alleycats.std.try_._`.
+`import alleycats.std.try._`.
+
+#### Iterable[\_] instances
+
+Scala's `collection.Iterable[_]` offers no guarantees that it's immutable, 
+since it abstracts over the `mutable` and `immutable` variants. However it's 
+the type used to represent a `Map`s `values`, and its often desirable to treat the 
+values of a map as a `Foldable` collection. Alleycats provides a `Foldable[Iterable]`, eg:
+
+```
+import cats.implicits._
+import alleycats.std.iterable._
+
+//Result "AppleOrange"
+Map(1 -> "Apple", 2 -> "Orange").values.combineAll
+```
 
 ### Contributing
 
