@@ -36,7 +36,7 @@ file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-libraryDependencies += "org.typelevel" %% "alleycats-core" % "0.1.5"
+libraryDependencies += "org.typelevel" %% "alleycats-core" % "0.1.6"
 ```
 
 You can also build Alleycats using
