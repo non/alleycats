@@ -5,7 +5,7 @@ package tests
 import catalysts.Platform
 
 import cats._
-import cats.std.AllInstances
+import cats.instances.AllInstances
 import cats.syntax.{AllSyntax, EqOps}
 
 import org.scalactic.anyvals.{PosZDouble, PosInt, PosZInt}
@@ -43,7 +43,7 @@ trait AlleycatsSuite extends FunSuite with Matchers with GeneratorDrivenProperty
 
   // disable Eq syntax (by making `catsSyntaxEq` not implicit), since it collides
   // with scalactic's equality
-  def catsSyntaxEq[A: Eq](a: A): EqOps[A] = new EqOps[A](a)
+  override def catsSyntaxEq[A: Eq](a: A): EqOps[A] = new EqOps[A](a)
 }
 
 sealed trait TestInstances {

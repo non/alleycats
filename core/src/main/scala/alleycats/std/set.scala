@@ -3,6 +3,8 @@ package alleycats.std
 import cats.{Applicative, Eval, Foldable, Monad, Traverse}
 import export._
 
+import scala.annotation.tailrec
+
 @exports
 object SetInstances {
   // This method advertises parametricity, but relies on using
@@ -31,6 +33,23 @@ object SetInstances {
       def pure[A](a: A): Set[A] = Set(a)
       override def map[A, B](fa: Set[A])(f: A => B): Set[B] = fa.map(f)
       def flatMap[A, B](fa: Set[A])(f: A => Set[B]): Set[B] = fa.flatMap(f)
+
+      def tailRecM[A, B](a: A)(f: (A) => Set[Either[A, B]]): Set[B] = {
+        val bldr = Set.newBuilder[B]
+
+        @tailrec def go(set: Set[Either[A, B]]): Unit = {
+          var lefts: Set[A] = Set()
+          set.foreach {
+            case Right(b) => bldr += b
+            case Left(a) =>
+              lefts = lefts + a
+          }
+          go(lefts.flatMap(f))
+        }
+        go(f(a))
+
+        bldr.result()
+      }
     }
 
   // Since iteration order is not guaranteed for sets, folds and other

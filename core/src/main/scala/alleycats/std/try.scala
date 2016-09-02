@@ -3,7 +3,8 @@ package std
 
 import cats.Bimonad
 import export._
-import scala.util.Try
+import scala.annotation.tailrec
+import scala.util.{Success, Failure, Try}
 
 @reexports(TryInstances)
 object try_ extends LegacyTryInstances
@@ -41,7 +42,14 @@ object TryInstances {
       def flatMap[A, B](fa: Try[A])(f: A => Try[B]): Try[B] = fa.flatMap(f)
       def coflatMap[A, B](fa: Try[A])(f: Try[A] => B): Try[B] = Try(f(fa))
       def extract[A](p: Try[A]): A = p.get
-  }
+
+      @tailrec def tailRecM[A, B](a: A)(f: (A) => Try[Either[A, B]]): Try[B] =
+        f(a) match {
+          case e: Failure[_] => e.asInstanceOf[Try[B]]
+          case Success(Left(a1)) => tailRecM(a1)(f)
+          case Success(Right(b)) => Success(b)
+        }
+    }
 }
 
 // TODO: remove when cats.{ Monad, Comonad, Bimonad } support export-hook
