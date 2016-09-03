@@ -44,10 +44,12 @@ object SetInstances {
             case Left(a) =>
               lefts = lefts + a
           }
-          go(lefts.flatMap(f))
+          if(lefts.isEmpty)
+            ()
+          else
+            go(lefts.flatMap(f))
         }
         go(f(a))
-
         bldr.result()
       }
     }

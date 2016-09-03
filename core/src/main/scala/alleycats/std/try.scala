@@ -43,12 +43,7 @@ object TryInstances {
       def coflatMap[A, B](fa: Try[A])(f: Try[A] => B): Try[B] = Try(f(fa))
       def extract[A](p: Try[A]): A = p.get
 
-      @tailrec def tailRecM[A, B](a: A)(f: (A) => Try[Either[A, B]]): Try[B] =
-        f(a) match {
-          case e: Failure[_] => e.asInstanceOf[Try[B]]
-          case Success(Left(a1)) => tailRecM(a1)(f)
-          case Success(Right(b)) => Success(b)
-        }
+      def tailRecM[A, B](a: A)(f: (A) => Try[Either[A, B]]): Try[B] = cats.instances.try_.catsStdInstancesForTry.tailRecM(a)(f)
     }
 }
 
