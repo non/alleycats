@@ -21,6 +21,7 @@ object Pure extends Pure0 {
       def pure[A](a: A): F[A] = p.pure(a)
       override def map[A, B](fa: F[A])(f: A => B): F[B] = fm.map(fa)(f)
       def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B] = fm.flatMap(fa)(f)
+      def tailRecM[A, B](a: A)(f: (A) => F[Either[A, B]]): F[B] = fm.tailRecM(a)(f)
     }
 }
 

@@ -17,7 +17,7 @@ addCommandAlias("gitSnapshots", ";set version in ThisBuild := git.gitDescribedVe
 val gh = GitHubSettings(org = "non", proj = "alleycats", publishOrg = "org.typelevel", license = mit)
 val devs = Seq(Dev("Erik Osheim", "non"))
 
-val vers = typelevel.versions ++ alleycats.versions + ("discipline" -> "0.4.1")
+val vers = typelevel.versions ++ alleycats.versions
 val libs = typelevel.libraries ++ alleycats.libraries
 val addins = typelevel.scalacPlugins ++ alleycats.scalacPlugins
 val vAll = Versions(vers, libs, addins)
@@ -52,7 +52,7 @@ lazy val coreJVM = coreM.jvm
 lazy val coreJS  = coreM.js
 lazy val coreM   = module("core", CrossType.Pure)
   .settings(typelevel.macroCompatSettings(vAll):_*)
-  .settings(addLibs(vAll, "cats-core", "export-hook", "simulacrum"):_*)
+  .settings(addLibs(vAll, "algebra", "cats-core", "export-hook", "simulacrum"):_*)
 
 /**
  * Laws project

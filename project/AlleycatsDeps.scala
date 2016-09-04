@@ -10,6 +10,7 @@ object Dependencies {
   // Versions for libraries and packages
   // Package -> version
   val versions = Map[String, String](
+    "discipline" -> "0.4.1"
   )
 
   // library definitions and links to their versions
