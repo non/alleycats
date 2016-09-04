@@ -38,11 +38,14 @@ object SetInstances {
         val bldr = Set.newBuilder[B]
 
         @tailrec def go(set: Set[Either[A, B]]): Unit = {
-          var lefts: Set[A] = Set()
-          set.foreach {
-            case Right(b) => bldr += b
-            case Left(a) =>
-              lefts = lefts + a
+          val lefts = set.foldLeft(Set[A]()) { (memo, either) =>
+            either.fold(
+              memo + _,
+              b => {
+                bldr += b
+                memo
+              }
+            )
           }
           if(lefts.isEmpty)
             ()
