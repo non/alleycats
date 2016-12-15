@@ -13,6 +13,7 @@ trait FlatMapRecTests[F[_]] extends Laws {
 
   def tailRecM[A: Arbitrary](implicit
                              ArbFA: Arbitrary[F[A]],
+                             ArbAFA: Arbitrary[A => F[A]],
                              EqFA: Eq[F[A]]
                             ): RuleSet = {
     new DefaultRuleSet(
