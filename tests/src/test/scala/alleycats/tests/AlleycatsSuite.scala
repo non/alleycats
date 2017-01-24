@@ -30,7 +30,7 @@ trait TestSettings extends Configuration with Matchers {
 
   lazy val slowCheckConfiguration: PropertyCheckConfiguration =
     if (Platform.isJvm) checkConfiguration
-    else PropertyCheckConfig(maxSize = 1, minSuccessful = 1)
+    else PropertyCheckConfiguration(sizeRange = 1, minSuccessful = 1)
 }
 
 /**
