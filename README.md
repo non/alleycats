@@ -28,7 +28,7 @@ provide a (slightly-disreputable) home for them here.
 
 ### Getting Alleycats
 
-Alleycats is currently available for Scala 2.10 and 2.11.
+Alleycats is currently available for Scala 2.10, 2.11 and 2.12.
 
 To get started with SBT, simply add the following to your `build.sbt`
 file:
@@ -36,7 +36,7 @@ file:
 ```scala
 resolvers += Resolver.sonatypeRepo("releases")
 
-libraryDependencies += "org.typelevel" %% "alleycats-core" % "0.1.6"
+libraryDependencies += "org.typelevel" %% "alleycats-core" % "0.1.9"
 ```
 
 You can also build Alleycats using
