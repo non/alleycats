@@ -1,5 +1,7 @@
 ## Alleycats
 
+# Deprecated. This project was moved into typelevel/cats. 
+
 > "But an outlaw can be defined as somebody who lives outside the law,
 > beyond the law and not necessarily against it."
 >
